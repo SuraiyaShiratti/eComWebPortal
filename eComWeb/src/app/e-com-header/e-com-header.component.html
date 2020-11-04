@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <div slot="start">
+        
+          <img alt="logo" id="header_logo" height="70" width="100" src="assets/icon/appLogo.png">
+        
+      
+      <!-- <ion-back-button></ion-back-button> -->
+    </div>
+    <!-- <img alt="logo" id="header_logo" height="70" float-left src="assets/icon/appLogo.png">
+    <ion-title class="pageTitle">
+      
+      <div>Welcome to eCom </div>
+    </ion-title> -->
+
+    <!-- <img  id="header_cart" height="50" float-left src="assets/icon/cart.png"> -->
+    <ion-title>
+      Welcome to E-Com Site
+    </ion-title>
+    <div class="endCart" slot="end">
+      <ion-item (click)="createPopover($event)"><!-- 
+        <ion-badge slot="start">11</ion-badge> -->
+        <img  id="header_cart" height="25" src="assets/icon/cart.png">
+        <ion-badge color="medium" slot="end">{{windowService.getTotalItemCount()}}</ion-badge>
+      </ion-item>
+      
+        
+      
+    </div>
+  </ion-toolbar>
+
+</ion-header>

@@ -1,0 +1,44 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { GlobalService } from 'src/environments/global.service';
+import { EComPopoverComponent } from '../cartPopOver/e-com-popover.component';
+
+@Component({
+  encapsulation: ViewEncapsulation.None,
+  selector: 'app-e-com-footer',
+  templateUrl: './e-com-footer.component.html',
+  styleUrls: ['e-com-footer.component.scss'],
+})
+export class EComFooterComponent implements OnInit {
+
+  constructor( public windowService: GlobalService,private popover: PopoverController) { }
+
+  ngOnInit() {}
+
+  /* checkout(){
+    alert("Your total payable amount is:" +this.windowService.getTotalCheckoutAmt())
+  } */
+  async checkout(ev: any) {
+
+    
+    const pop = await this.popover.create({
+      component: EComPopoverComponent,
+      cssClass: 'custom-popover',
+      event: ev,
+      translucent: true,
+      backdropDismiss : false,
+      componentProps: {
+        "cart": this.windowService.getCartDataObject(),
+      }
+    });
+
+    pop.onDidDismiss()
+    .then((data) => {
+      const cartData = data['data']; 
+      console.log("on dissmiss : ", cartData);
+      this.windowService.setDataFromCartPage(cartData);
+  });
+    return await pop.present();
+  }
+
+}

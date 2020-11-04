@@ -1,0 +1,37 @@
+<ion-content>
+
+  <div *ngIf="windowService.checkIfDataIsValid(itemList)">
+    <ion-card *ngFor="let item of itemList">
+      <ion-card-header>
+        <ion-row class="itemHeader">
+
+          <ion-col><img [src]="item.image" /></ion-col>
+          <ion-col>
+            <ion-card-subtitle>{{item.price | currency:'INR'}}</ion-card-subtitle>
+          </ion-col>
+          <ion-col>
+            <ion-card-title>{{item.name}}</ion-card-title>
+          </ion-col>
+          <ion-col>
+            <div class=".quantity">Quantity Available:{{item.quantity}}Unit</div>
+          </ion-col>
+          <ion-col>
+
+            <ion-button color="success" *ngIf="item.quantity>0" (click)="addToCart(item)">Add to cart</ion-button>
+            <ion-button color="danger" *ngIf="item.quantity<=0">Out of Stock!</ion-button>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-card-header>
+
+      <ion-card-content>
+        {{item.description}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="windowService.checkIfDataIsValid(itemList)==false" class="errorMsg">
+    All items are out of stock!!
+  </div>
+</ion-content>

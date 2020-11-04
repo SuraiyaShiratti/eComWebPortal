@@ -1,0 +1,47 @@
+<ion-content class="cart">
+    <div *ngIf="windowService.checkIfDataIsValid(cartObject) == true">
+        <ion-list lines="full">
+            <ion-item *ngFor="let cartItem of cartObject ; let i = index">
+
+                {{cartItem.name}}
+                <ion-list>
+                    <ion-item>
+                        Unit Price {{cartItem.price}}
+                    </ion-item>
+
+                    <ion-item>
+                        Units ordered :
+                        <ion-input type="number" class="input-bg" [(ngModel)]="cartItem.quantityOrdered"
+                            name="quantityOrdered" [placeholder]="cart.quantityOrdered"
+                            (ionChange)="changeInQuantity(i)"></ion-input> <!-- (ionChange)="" -->
+
+                        <span *ngIf="cartItem.quantityOrdered > cartItem.totalQuantity">Out of stock!</span>
+                    </ion-item>
+
+                    <ion-item>
+                        Subtotal : {{cartItem.subTotal }}
+                        <!-- {{cartItem.price*cartItem.quantityOrdered}} -->
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-button color="warning" (click)="removeFromCart(i)">Remove</ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+        <ion-item>Total Payable Amount : {{totalCheckoutAmount}}</ion-item>
+        <ion-button color="success" (click)="checkout()">Checkout</ion-button>
+        <ion-button color="danger" (click)="ClosePopover()">Cancel</ion-button>
+
+
+    </div>
+    <ion-list *ngIf="windowService.checkIfDataIsValid(cartObject) == false">
+        <ion-item>
+            Your Cart is empty!
+        </ion-item>
+        <ion-item>
+            <ion-button color="danger" (click)="ClosePopover()">Cancel</ion-button>
+        </ion-item>
+    </ion-list>
+   
+</ion-content>
